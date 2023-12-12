@@ -32,7 +32,7 @@ function App() {
       return null;
     }
     
-    // Example usage:
+   
     const inputCode = input;
     
     const extractedJsonArray = extractJsonArray(inputCode);
@@ -59,10 +59,17 @@ function App() {
     
   }
   
-  // const handlerMinify = () => {
-  //   const outPut = JSON.stringify(JSON.parse(input));
-  //   console.log("minify");
-  // }
+  const handlerMinify = () => {
+    try {
+      
+      const outPut = JSON.stringify(JSON.parse(input));
+      setOutput(outPut);
+
+    } catch (error) {
+      setOutput("No JSON array found in the code.");
+    }
+
+  }
   
   
   
@@ -75,7 +82,7 @@ function App() {
 
       <div className="controls">
         <button onClick={handlerFormat} type='button' className='btn-format'> Format </button>
-        <button  type='button' className='btn-minify'> Minify </button>
+        <button onClick={handlerMinify} type='button' className='btn-minify'> Minify </button>
       </div>
 
       <textarea className='large-area large-area--output' readOnly value={output} placeholder='Output' />
