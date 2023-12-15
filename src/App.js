@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './App.css';
+import ControlsBtn from './components/ControlsBtn';
+import InputArea from './components/InputArea';
+import OutputArea from './components/OutputArea';
 
 
 function App() {
@@ -31,21 +34,11 @@ function App() {
     if (extractedJsonArray !== null) {
       
       const finalOutputWithoutScript = JSON.stringify(JSON.parse(extractedJsonArray), null, 2);
-      const finalOutputWithScript = `<script type='application/ld+json'> ${finalOutputWithoutScript} </script>`
-
-      // const index = JSON.parse(finalOutput).findIndex((el) => {
-      //   return el["@type"] === "MedicalAudience";
-      // });
-
-      
-
+      const finalOutputWithScript = `<script type='application/ld+json'> ${finalOutputWithoutScript} </script>`;    
       setOutput(finalOutputWithScript);
-      // setOutput(finalOutput);
-      // setOutput(JSON.stringify(JSON.parse(extractedJsonArray), null, 2));
-      // setOutput(JSON.parse(extractedJsonArray));
-      // console.log(JSON.stringify(JSON.parse(extractedJsonArray), null, 2))
 
-    } else {
+    } 
+    else {
       setOutput("No JSON array found in the code.");
     }
     
@@ -54,40 +47,31 @@ function App() {
   
   const handlerMinify = () => {
     try {
-      
       const outPut = JSON.stringify(JSON.parse(input));
       setOutput(outPut);
 
     } catch (error) {
       setOutput("No JSON array found in the code.");
     }
-
   }
 
 
   const handlerCommentRemove = () => {
+
     const inputCode = input;
     const extractedJsonArray = extractJsonArray(inputCode);
     if (extractedJsonArray !== null) {
       
       const finalOutputWithoutScript = extractedJsonArray ;
-      const finalOutputWithScript = `<script type='application/ld+json'> ${finalOutputWithoutScript} </script>`
-
-      // const index = JSON.parse(finalOutput).findIndex((el) => {
-      //   return el["@type"] === "MedicalAudience";
-      // });
-
-      
-
+      const finalOutputWithScript = `<script type='application/ld+json'> ${finalOutputWithoutScript} </script>`;
       setOutput(finalOutputWithScript);
-      // setOutput(finalOutput);
-      // setOutput(JSON.stringify(JSON.parse(extractedJsonArray), null, 2));
-      // setOutput(JSON.parse(extractedJsonArray));
-      // console.log(JSON.stringify(JSON.parse(extractedJsonArray), null, 2))
 
-    } else {
+    } 
+    
+    else {
       setOutput("No JSON array found in the code.");
     }
+
   }
   
   
@@ -95,19 +79,15 @@ function App() {
 
 
   return (
-    <div className="conatiner">
-
-      <textarea className='large-area large-area--input' value={input} onChange={handlerInput} placeholder='Input' />
-
-      <div className="controls">
-        <button onClick={handlerCommentRemove} type='button' className='btn-comment-remove'> Remove Comment </button>
-        <button onClick={handlerFormat} type='button' className='btn-format'> Format </button>
-        <button onClick={handlerMinify} type='button' className='btn-minify'> Minify </button>
+    <>
+      <div className="conatiner">
+        <div className="input_output_wrraper">
+          <InputArea handlerInput={handlerInput} input={input} />
+          <ControlsBtn CommentRemove={handlerCommentRemove}  handlerFormat={handlerFormat} handlerMinify={handlerMinify} />
+          <OutputArea output={output} />
+        </div>
       </div>
-
-      <textarea className='large-area large-area--output' value={output} placeholder='Output' readOnly />
-
-    </div>
+    </>
   );
 }
 

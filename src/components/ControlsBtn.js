@@ -1,9 +1,16 @@
+import RemoveCommentBtn from "./jsonBtns/RemoveCommentBtn"
+import FormatBtn from "./jsonBtns/FormatBtn"
+import Minify from "./jsonBtns/Minify"
 
-const ControlsBtn = () => {
+const ControlsBtn = ({CommentRemove, handlerFormat, handlerMinify }) => {
+  
   return (
     <div className="controls">
-        <button type='button' className='btn-format'> Format </button>
-        <button type='button' className='btn-minify'> Minify </button>
+        
+        <RemoveCommentBtn CommentRemove={CommentRemove}   />
+        <FormatBtn handlerFormat={handlerFormat} />
+        <Minify  handlerMinify={handlerMinify} />
+        
     </div>
   )
 }

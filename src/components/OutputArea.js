@@ -1,7 +1,7 @@
 
-const OutputArea = ({value}) => {
+const OutputArea = ({output}) => {
   return (
-    <textarea value={value} className='large-area large-area--output' readOnly />
+    <textarea className='large-area large-area--output' value={output} placeholder='Output' readOnly />
   )
 }
 
